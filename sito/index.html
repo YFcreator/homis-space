@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOMIS — Record Store Bar · Isola, Milano</title>
+<meta name="description" content="HOMIS, in Via Thaon di Revel 3 a Isola, Milano. Dove per quattordici anni c'è stato KD House e nel 2016, sulla panchina davanti alla porta, è nata Asian Fake. Un posto in cui la musica è il motivo per cui si entra. Mercoledì–sabato, 18:00–24:00.">
+<meta name="theme-color" content="#0A0A0C">
+<meta property="og:title" content="HOMIS — Record Store Bar">
+<meta property="og:description" content="Via Thaon di Revel 3, Isola, Milano. Aperto da mercoledì a sabato, 18:00–24:00.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://homis.space/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   HOMIS — sistema "Grana e Ovale"
+   Un poster è un componente. La pagina è una serie di poster.
+   ========================================================== */
+
+:root{
+  --nero:#0A0A0C;
+  --crema:#F5F0E8;
+  --crema-dim:rgba(245,240,232,.72);
+  --crema-faint:rgba(245,240,232,.54);
+  --hair:rgba(245,240,232,.22);
+
+  --viola:#6A5FCC;
+  --acido:#C9FF4C;
+  --magenta:#E02A5F;
+  --blu:#3D68CC;
+  --accent:var(--crema);
+
+  --gutter:clamp(18px,4.2vw,56px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+body{
+  background:var(--nero);color:var(--crema);
+  font-family:'Archivo',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+
+/* grana di pagina: velatura che alza i neri, non li affonda */
+.grain{
+  position:fixed;inset:-40%;z-index:1;pointer-events:none;
+  opacity:.26;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='170' height='170'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='170' height='170' filter='url(%23n)' opacity='.7'/></svg>");
+  background-size:170px 170px;
+}
+/* cornice di pagina: allineata al margine del testo, come nel poster */
+.frame{position:absolute;inset:var(--gutter);z-index:5;pointer-events:none;border:1px solid var(--hair)}
+
+.wrap{position:relative;z-index:2;min-height:100vh}
+.inner{max-width:1280px;margin:0 auto;padding-inline:var(--gutter)}
+
+/* ---------- tipografia ---------- */
+.mono{font-size:clamp(10px,.74vw,11.5px);font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.num{font-weight:800;font-variation-settings:'wdth' 125;letter-spacing:-.02em;font-variant-numeric:lining-nums tabular-nums}
+
+/* ---------- testata ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:calc(var(--gutter) + 20px) calc(var(--gutter) + 22px) 0;position:relative;z-index:10}
+.topbar .mono{color:var(--crema-faint)}
+.topbar nav{display:flex;gap:22px}
+.topbar a{color:var(--crema-faint);text-decoration:none;transition:color .25s}
+.topbar a:hover,.topbar a:focus-visible{color:var(--crema)}
+@media(max-width:620px){.topbar{justify-content:flex-start}.topbar>.mono:first-child{display:none}.topbar nav{gap:15px}}
+
+/* ==========================================================
+   IL POSTER — un solo componente, usato ovunque
+   ========================================================== */
+.poster{
+  container-type:inline-size;
+  position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;
+  background:
+    linear-gradient(158deg,
+      var(--c) 0%,
+      color-mix(in srgb, var(--c) 97%, #000) 38%,
+      color-mix(in srgb, var(--c) 92%, #000) 72%,
+      color-mix(in srgb, var(--c) 86%, #000) 100%);
+  isolation:isolate;
+}
+.poster::after{ /* grana in soft-light: velatura, non annerimento */
+  content:"";position:absolute;inset:0;z-index:6;pointer-events:none;
+  opacity:.44;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='.68' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='3' intercept='-1'/></feComponentTransfer></filter><rect width='160' height='160' filter='url(%23m)'/></svg>");
+  background-size:160px 160px;
+}
+.poster__frame{position:absolute;inset:4.2%;z-index:2;border:1px solid rgba(255,255,255,.36);pointer-events:none}
+.poster__word{position:absolute;z-index:3;left:50%;transform:translateX(-50%);top:7.5%;width:56%;
+  filter:drop-shadow(0 1px 8px rgba(0,0,0,.22))}
+
+/* l'ovale: orizzontale, largo, attraversa la cornice */
+.poster__ovale{
+  position:absolute;z-index:4;left:50%;top:57%;transform:translate(-50%,-50%);
+  width:96%;aspect-ratio:8/7;
+  border:clamp(3px,1.15cqw,7px) solid var(--crema);
+  border-radius:50%;overflow:hidden;
+  background:
+    radial-gradient(78% 70% at 62% 28%, color-mix(in srgb, var(--c) 46%, #07070A) 0%, color-mix(in srgb, var(--c) 18%, #07070A) 58%, #07070A 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 8% 10.5% 19%;
+}
+.poster__foto{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) contrast(1.2) brightness(.88);mix-blend-mode:luminosity}
+.poster__ovale::before{ /* grana sugli scuri: solo dentro l'ovale */
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  opacity:.20;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='o'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='3' intercept='-1'/></feComponentTransfer></filter><rect width='160' height='160' filter='url(%23o)'/></svg>");
+  background-size:160px 160px;
+}
+.poster__ovale::after{ /* leggibilità della data */
+  content:"";position:absolute;inset:auto 0 0 0;height:52%;z-index:1;pointer-events:none;
+  background:linear-gradient(transparent,rgba(0,0,0,.66))}
+.poster__ovale > :not(.poster__foto){position:relative;z-index:2}
+
+.poster__data{font-size:13cqw;line-height:.88;text-shadow:0 2px 16px rgba(0,0,0,.45)}
+.poster__nome{margin-top:1.6cqw;font-size:max(9.5px,3.1cqw);font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;line-height:1.25;text-shadow:0 1px 8px rgba(0,0,0,.5);text-wrap:balance}
+.poster__sub{margin-top:.9cqw;font-size:max(8.5px,2.2cqw);font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(255,255,255,.76)}
+
+/* ---------- poster calendario: stessa grammatica, secondo impaginato ----------
+   Niente ovale: qui la finestra sarebbe una sola serata, e il pezzo ne porta undici.
+   Restano campo, grana, cornice, marchio e le due voci tipografiche. */
+.poster--cal{--ink:var(--crema);--ink-dim:var(--crema-dim);--ink-ombra:none;background:none}
+.poster--cal::after{display:none}
+.poster--cal .poster__frame{border-color:var(--hair)}
+.cal{position:absolute;inset:4.2%;z-index:3;display:flex;flex-direction:column;
+  justify-content:center;padding:17cqw 5.5% 0;color:var(--ink)}
+.cal__griglia{display:grid;grid-template-columns:1fr 1fr;column-gap:6%;row-gap:2.6cqw;
+  align-content:center}
+.cal__riga{min-width:0}
+.cal__riga .n{font-size:max(22px,7.6cqw);font-weight:800;font-stretch:125%;letter-spacing:-.02em;
+  line-height:.86;text-shadow:var(--ink-ombra)}
+.cal__riga .t{margin-top:.7cqw;font-size:max(8px,2.3cqw);font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-dim);line-height:1.22;text-wrap:balance}
+.cal__riga.passata{opacity:.34}
+.cal__riga.oggi .t{color:var(--ink)}
+.cal__riga.oggi .t{font-weight:800}
+.cal__riga .t b{display:block;margin-top:.35em;font-weight:800}
+.cal__piede{position:absolute;left:5.5%;right:5.5%;bottom:4.5cqw;display:flex;
+  justify-content:space-between;gap:10px;font-size:max(8px,2.2cqw);font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
+@media(max-width:520px){
+  .cal__riga .t{font-size:max(7.5px,2.3cqw)}
+}
+
+/* ---------- apertura ---------- */
+.apertura{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);
+  gap:clamp(30px,4.5vw,72px);align-items:center;
+  padding:clamp(32px,5.5vw,72px) 0 0;
+}
+@media(max-width:920px){.apertura{grid-template-columns:1fr;gap:clamp(30px,6vw,46px)}}
+.marchio img{width:min(100%,430px)}
+.apertura .lock{margin-top:clamp(10px,1.2vw,15px);color:var(--crema-faint)}
+.apertura .dove{margin-top:clamp(26px,3vw,40px);font-size:clamp(30px,3.7vw,52px);line-height:.98;text-transform:uppercase}
+.apertura .citta{margin-top:10px;color:var(--crema-faint)}
+.stato{margin-top:clamp(16px,1.9vw,24px);display:inline-flex;align-items:center;gap:10px;
+  border:1px solid var(--hair);border-radius:999px;padding:9px 16px 9px 13px;color:var(--crema-dim)}
+.pallino{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;
+  box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent);animation:pulsa 2.8s ease-out infinite}
+@keyframes pulsa{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.formati{list-style:none;margin-top:clamp(28px,3.4vw,44px);display:grid;gap:11px;max-width:34ch}
+.formati li{display:flex;align-items:center;gap:11px;color:var(--crema-faint);transition:color .25s}
+.formati li:hover{color:var(--crema-dim)}
+.formati i{width:14px;height:1px;background:var(--crema-faint);flex:none}
+.poster-grande{width:min(100%,460px);margin-inline:auto;display:flex;flex-direction:column;gap:12px}
+.poster-grande figcaption{text-align:right;color:var(--crema-faint)}
+@media(max-width:920px){.poster-grande figcaption{text-align:left}}
+
+/* ---------- riga informazioni ---------- */
+.strip{margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  display:grid;grid-template-columns:repeat(3,1fr)}
+.strip div{padding:24px 0 22px;border-left:1px solid var(--hair)}
+.strip div:first-child{border-left:0;padding-left:0}
+.strip div:not(:first-child){padding-left:26px}
+.strip h3{color:var(--crema-faint);margin-bottom:8px}
+.strip p,.strip a{font-size:clamp(15px,1.25vw,17px);font-weight:500;line-height:1.45;color:var(--crema);text-decoration:none}
+.strip a{display:block;transition:color .25s}
+.strip a:hover{color:var(--accent)}
+@media(max-width:760px){.strip{grid-template-columns:1fr}
+  .strip div{border-left:0;padding-left:0!important;border-top:1px solid var(--hair)}
+  .strip div:first-child{border-top:0}}
+
+/* ---------- calendario: il muro ---------- */
+section{padding:clamp(70px,10vw,140px) 0 0}
+.testa{display:flex;align-items:baseline;gap:clamp(12px,1.8vw,22px);flex-wrap:wrap;margin-bottom:8px}
+.mese{font-size:clamp(30px,4.2vw,56px);line-height:1;text-transform:uppercase}
+.anno{font-size:clamp(18px,2.2vw,30px);font-weight:800;color:var(--crema-faint);font-variation-settings:'wdth' 125}
+.sottotesta{color:var(--crema-faint);margin-bottom:clamp(24px,3vw,38px)}
+
+.muro{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(min-width:620px){.muro{gap:14px}}
+@media(min-width:860px){.muro{grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.4vw,20px)}}
+.tile{position:relative;display:block;text-decoration:none;color:inherit}
+.loc{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.tile .poster,.tile .loc{transition:transform .5s cubic-bezier(.2,.7,.3,1),filter .5s,opacity .5s}
+@media(hover:hover){.tile:hover .poster,.tile:hover .loc{transform:translateY(-6px)}}
+.tile.passata .poster,.tile.passata .loc{filter:grayscale(1) brightness(.5);opacity:.5}
+@media(hover:hover){.tile.passata:hover .loc{filter:grayscale(.2) brightness(.8);opacity:.9}}
+.tile.passata .poster__data{text-decoration:line-through;text-decoration-thickness:.09em}
+.tile.oggi::after{content:"Stasera";position:absolute;z-index:8;top:0;left:0;
+  background:var(--crema);color:#0A0A0C;font-size:9px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;padding:6px 10px}
+
+.lista-statica{list-style:none;border-top:1px solid var(--hair)}
+.lista-statica li{padding:16px 0;border-bottom:1px solid var(--hair);font-size:17px;display:flex;gap:14px;flex-wrap:wrap;align-items:baseline}
+.lista-statica time{font-weight:800;font-variation-settings:'wdth' 125;font-size:22px}
+.lista-statica span{color:var(--crema-faint);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.nota{margin-top:clamp(28px,3.4vw,44px);max-width:62ch;color:var(--crema-dim);
+  font-size:clamp(14px,1.1vw,15px);line-height:1.65}
+.nota a{color:var(--crema);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px}
+
+/* ---------- il posto: campo a tinta piena ---------- */
+.posto{
+  margin-top:clamp(70px,10vw,140px);
+  color:var(--crema);border-top:1px solid var(--hair);
+  padding:clamp(56px,8vw,120px) 0;position:relative;overflow:hidden;
+}
+.posto::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='150' height='150' filter='url(%23p)' opacity='.7'/></svg>");
+  background-size:150px 150px}
+.posto .inner{position:relative;z-index:2}
+.posto .frase{font-size:clamp(32px,5.4vw,76px);line-height:.98;text-transform:uppercase;max-width:15ch;text-wrap:balance}
+.posto .prologo{margin-top:clamp(34px,4.4vw,58px);max-width:64ch}
+.posto p{font-size:clamp(16px,1.35vw,19px);line-height:1.72;color:var(--crema-dim)}
+.posto p + p{margin-top:1.35em}
+
+
+/* ---------- piede ---------- */
+footer{padding:clamp(60px,8vw,110px) 0 0}
+.piede{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;
+  border-bottom:1px solid var(--hair);padding-bottom:clamp(34px,4vw,52px)}
+.piede h4{color:var(--crema-faint);margin-bottom:10px}
+.piede p,.piede a{font-size:15px;line-height:1.5;color:var(--crema);text-decoration:none;display:block}
+.piede a{transition:color .25s}
+.piede a:hover{color:var(--accent)}
+@media(max-width:760px){.piede{grid-template-columns:repeat(2,1fr)}}
+
+.chiusura{padding:clamp(40px,5.5vw,76px) 0 0}
+.chiusura .data{font-size:clamp(58px,11vw,160px);line-height:.84;text-transform:uppercase}
+.chiusura .nome{font-size:clamp(22px,3.2vw,46px);line-height:1;text-transform:uppercase;color:var(--accent);margin-top:clamp(8px,1vw,14px);transition:color .7s ease}
+.chiusura .sotto{margin-top:clamp(12px,1.4vw,18px);font-size:clamp(15px,1.3vw,18px);color:var(--crema-dim);font-weight:500}
+.colofon{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:clamp(34px,4vw,56px) 0 calc(var(--gutter) + 20px);color:var(--crema-faint)}
+</style>
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Malincuore — HOMIS",
+  "startDate": "2026-09-03T18:00:00+02:00",
+  "endDate": "2026-09-03T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "DJ set da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Max Trono — HOMIS",
+  "startDate": "2026-09-12T18:00:00+02:00",
+  "endDate": "2026-09-12T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "DJ set da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Senio Release — HOMIS",
+  "startDate": "2026-09-17T18:00:00+02:00",
+  "endDate": "2026-09-17T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "Release · DJ select da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Chaka — HOMIS",
+  "startDate": "2026-09-18T18:00:00+02:00",
+  "endDate": "2026-09-18T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "DJ set da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Back to Rash — HOMIS",
+  "startDate": "2026-09-19T18:00:00+02:00",
+  "endDate": "2026-09-19T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "DJ select da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Listening — HOMIS",
+  "startDate": "2026-09-23T18:00:00+02:00",
+  "endDate": "2026-09-23T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "Un disco intero da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Velli Reason Wise — HOMIS",
+  "startDate": "2026-09-24T18:00:00+02:00",
+  "endDate": "2026-09-24T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "Release da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "MusicEvent",
+  "name": "Open deck — HOMIS",
+  "startDate": "2026-09-25T18:00:00+02:00",
+  "endDate": "2026-09-25T00:00:00+02:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+   "@type": "MusicVenue",
+   "name": "HOMIS — Record Store Bar",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Thaon di Revel 3",
+    "addressLocality": "Milano",
+    "postalCode": "20159",
+    "addressCountry": "IT"
+   },
+   "url": "https://homis.space/"
+  },
+  "description": "La consolle è aperta da HOMIS, record store bar a Isola, Milano.",
+  "organizer": {
+   "@type": "Organization",
+   "name": "HOMIS — Record Store Bar",
+   "url": "https://homis.space/"
+  },
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "availability": "https://schema.org/InStock",
+   "url": "https://homis.space/"
+  }
+ }
+]
+
+</script>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="frame"></div>
+
+  <header class="topbar">
+    <span class="mono">Isola · Milano</span>
+    <nav class="mono">
+      <a href="#calendario">Calendario</a>
+      <a href="#posto">Il posto</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
+  </header>
+
+  <div class="inner">
+
+    <div class="apertura">
+      <div>
+        <h1 class="marchio"><img src="homis-wordmark.png" alt="HOMIS" width="2000" height="353"></h1>
+        <p class="lock mono">Record Store Bar</p>
+        <p class="dove num">Via Thaon<br>di Revel 3</p>
+        <p class="citta mono">20159 Milano · Isola</p>
+        <div class="stato mono"><span class="pallino"></span><span id="stato-testo">Mercoledì — Sabato, dalle 18:00</span></div>
+
+        <ul class="formati mono">
+          <li style="--c:var(--viola)"><i></i>Listening · un disco intero</li>
+          <li style="--c:var(--acido)"><i></i>Release · il disco esce qui</li>
+          <li style="--c:var(--magenta)"><i></i>Takeover · ospiti in consolle</li>
+          <li style="--c:var(--blu)"><i></i>Open deck · porti i tuoi dischi</li>
+        </ul>
+      </div>
+
+      <figure class="poster-grande">
+        <figcaption class="mono" id="grande-cap">Il mese</figcaption>
+        <div id="poster-grande"></div>
+      </figure>
+    </div>
+
+    <div class="strip">
+      <div>
+        <h3 class="mono">Indirizzo</h3>
+        <p>Via Thaon di Revel 3<br>20159 Milano, Isola</p>
+      </div>
+      <div>
+        <h3 class="mono">Orari</h3>
+        <p>Mercoledì — Sabato<br>18:00 — 24:00</p>
+      </div>
+      <div>
+        <h3 class="mono">Contatti</h3>
+        <a href="mailto:team@homis.space">team@homis.space</a>
+        <a href="https://instagram.com/homis_rsb" rel="noopener">@homis_rsb</a>
+      </div>
+    </div>
+
+    <section id="calendario">
+      <div class="testa">
+        <h2 class="mese num" id="mese">Settembre</h2>
+        <span class="anno num" id="anno">2026</span>
+      </div>
+      <p class="sottotesta mono" id="sottotesta">Tutte le serate 18:00 — 24:00 · ingresso libero</p>
+      <div class="muro" id="muro"></div>
+      <noscript>
+  <ul class="lista-statica">
+    <li><time datetime="2026-09-03">3/9</time> — Malincuore <span>DJ select</span></li>
+    <li><time datetime="2026-09-12">12/9</time> — Max Trono <span>CD select</span></li>
+    <li><time datetime="2026-09-17">17/9</time> — Senio Release <span>DJ select</span></li>
+    <li><time datetime="2026-09-18">18/9</time> — Chaka <span>DJ set</span></li>
+    <li><time datetime="2026-09-19">19/9</time> — Back to Rash <span>DJ select</span></li>
+    <li><time datetime="2026-09-23">23/9</time> — Listening <span>Un disco intero</span></li>
+    <li><time datetime="2026-09-24">24/9</time> — Velli Reason Wise <span>con Sebas Merino · DJ set</span></li>
+    <li><time datetime="2026-09-25">25/9</time> — Open deck <span>La consolle è aperta</span></li>
+  </ul>
+</noscript>
+      <p class="nota">
+        La programmazione si muove di settimana in settimana. Gli aggiornamenti, i nomi in aggiunta e i cambi di serata passano da <a href="https://instagram.com/homis_rsb" rel="noopener">@homis_rsb</a>. Per info, collaborazioni o prenotazioni: <a href="mailto:team@homis.space">team@homis.space</a>.
+      </p>
+    </section>
+  </div>
+
+  <section class="posto" id="posto">
+    <div class="inner">
+      <h2 class="frase num">Non è la musica che sta dentro HOMIS.<br>È HOMIS che sta dentro la musica.</h2>
+      <div class="prologo">
+        <p>A Isola c'è una via che aspetta. Per quattordici anni, in pochi metri quadri al numero 3, c'è stato un locale che si chiamava KD House, dove sono passati centinaia di artisti, dal rock'n'roll al rockabilly, e dove una sera la figlia di Chuck Berry ha seguito in diretta un concertino dedicato a suo padre. Non era un posto famoso, era un posto vero. Davanti alla porta c'era una panchina, e nel 2016, su quella panchina, è nata Asian Fake. Sul momento è passata inosservata, come passano inosservate queste cose, e lo si è capito dopo, quando è diventato chiaro che quasi tutto quello che è venuto poi era cominciato lì.</p>
+        <p>Adesso lo spazio si chiama HOMIS. Ogni volta che si prova a spiegarlo con una formula viene fuori qualcosa che non gli somiglia. Nel modo più semplice, è un posto in cui la musica è il motivo per cui si entra. La conversazione, il bicchiere in mano, la luce bassa, la persona seduta accanto esistono attorno a lei.</p>
+        <p>Che cosa succeda qui dentro, poi, non lo decide nessuno in anticipo. Ci sono etichette, artisti, giornalisti, creativi, collezionisti, gente che passa di lì, e stanno nella stessa stanza senza doversi spiegare a vicenda che cosa ci fanno. Le cose migliori nascono di lato, mentre si ascolta qualcosa di bello insieme a qualcuno che lo capisce quanto te. È già successo, su una panchina, dieci anni fa.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contatti">
+    <div class="inner">
+      <div class="piede">
+        <div><h4 class="mono">Dove</h4><p>Via Thaon di Revel 3<br>20159 Milano · Isola</p></div>
+        <div><h4 class="mono">Quando</h4><p>Mercoledì — Sabato<br>18:00 — 24:00</p></div>
+        <div><h4 class="mono">Scrivi</h4><a href="mailto:team@homis.space">team@homis.space</a></div>
+        <div><h4 class="mono">Segui</h4><a href="https://instagram.com/homis_rsb" rel="noopener">@homis_rsb</a></div>
+      </div>
+
+      <div class="chiusura">
+        <div class="data num" id="chiusura-data">—</div>
+        <div class="nome num" id="chiusura-nome"></div>
+        <div class="sotto" id="chiusura-sotto">Via Thaon di Revel 3, Isola</div>
+      </div>
+
+      <div class="colofon mono">
+        <span>House of Music</span>
+        <span>Isola · Milano</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="grain"></div>
+
+<script>
+/* ==================================================================
+   Il calendario vive qui. Una riga per serata, niente altro.
+   Ogni formato porta il suo colore. La pagina si riallinea da sola
+   rispetto a oggi: le passate si spengono, la prossima sale in alto.
+   Per la foto di una serata: campo `foto` con il percorso del file
+   (proporzione consigliata 8/7, orizzontale). Senza foto l'ovale
+   resta a tinta piena, ed è previsto.
+================================================================== */
+const FORMATI = {
+  listening: {c:'var(--viola)',   etichetta:'Listening'},
+  release:   {c:'var(--acido)',   etichetta:'Release', chiaro:true},
+  takeover:  {c:'var(--magenta)', etichetta:'Takeover'},
+  open:      {c:'var(--blu)',     etichetta:'Open deck'}
+};
+
+const SERATE = [
+  {d:'2026-09-03', nome:'Malincuore',         f:'takeover',  sub:'DJ select',      loc:'loc/03-09.jpg'},
+  {d:'2026-09-12', nome:'Max Trono',          f:'takeover',  sub:'CD select',      loc:'loc/12-09.jpg'},
+  {d:'2026-09-17', nome:'Senio Release',      f:'release',   sub:'DJ select',      loc:'loc/17-09.jpg'},
+  {d:'2026-09-18', nome:'Chaka',              f:'takeover',  sub:'DJ set',         loc:'loc/18-09.jpg'},
+  {d:'2026-09-19', nome:'Back to Rash',       f:'takeover',  sub:'DJ select',      loc:'loc/19-09.jpg'},
+  {d:'2026-09-23', nome:'Listening',          f:'listening', sub:'Un disco intero', foto:'loc/23-09-foto.jpg'},
+  {d:'2026-09-24', nome:'Velli Reason Wise',  f:'release',   sub:'con Sebas Merino · DJ set', loc:'loc/24-09.jpg'},
+  {d:'2026-09-25', nome:'Open deck',          f:'open',      sub:'La consolle è aperta',      loc:'loc/25-09.jpg'}
+];
+
+const GIORNI_L = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const MESI = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+
+const inizio = iso => new Date(iso + 'T00:00:00');
+/* una sera finisce alle 2 del mattino dopo: fino a lì è ancora quella sera */
+const fine = iso => { const x = inizio(iso); x.setHours(26,0,0,0); return x; };
+const gm = dt => dt.getDate() + '/' + (dt.getMonth() + 1);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* il poster: un componente, due misure, nessuna eccezione */
+function poster(data, nome, sub, foto){
+  return '<div class="poster">' +
+      '<div class="poster__frame"></div>' +
+      '<img class="poster__word" src="homis-wordmark.png" alt="" aria-hidden="true">' +
+      '<div class="poster__ovale">' +
+        (foto ? '<img class="poster__foto" src="' + esc(foto) + '" alt="">' : '') +
+        '<div class="poster__data num">' + esc(data) + '</div>' +
+        '<div class="poster__nome">' + esc(nome) + '</div>' +
+        (sub ? '<div class="poster__sub">' + esc(sub) + '</div>' : '') +
+      '</div>' +
+    '</div>';
+}
+
+/* il poster del mese: la stessa struttura, riempita con tutte le serate */
+function posterCalendario(righe, mese){
+  const cella = r =>
+    '<div class="cal__riga' + (r.passata ? ' passata' : '') + (r.oggi ? ' oggi' : '') + '">' +
+      '<div class="n num">' + esc(r.data) + '</div>' +
+      '<div class="t">' + esc(r.nome) + (r.nota ? '<b>' + esc(r.nota) + '</b>' : '') + '</div>' +
+    '</div>';
+  return '<div class="poster poster--cal">' +
+      '<div class="poster__frame"></div>' +
+      '<img class="poster__word" src="homis-wordmark.png" alt="" aria-hidden="true">' +
+      '<div class="cal">' +
+        '<div class="cal__griglia">' + righe.map(cella).join('') + '</div>' +
+      '</div>' +
+      '<div class="cal__piede"><span>' + esc(mese) + '</span><span>Mer — Sab · 18—24</span></div>' +
+    '</div>';
+}
+
+const ora = new Date();
+const root = document.documentElement;
+const muro = document.getElementById('muro');
+let prossima = null;
+const righeCal = [];
+
+/* una passata sola sui dati: stato di ogni serata, calendario del mese, prossima sera */
+const SERE = SERATE.map(s => {
+  const fmt = FORMATI[s.f];
+  const dt = inizio(s.d);
+  const passata = ora > fine(s.d);
+  const oggi = dt.toDateString() === ora.toDateString();
+  return Object.assign({}, s, {fmt, dt, passata, oggi});
+});
+
+SERE.forEach(s => {
+  if (!prossima && !s.passata) prossima = s;
+  righeCal.push({
+    data: gm(s.dt), nome: s.nome, passata: s.passata, oggi: s.oggi,
+    nota: s.oggi ? (aperto() ? 'aperto ora' : 'stasera') : ''
+  });
+});
+
+/* il muro parte dalla serata più vicina e va avanti; le passate scendono in fondo,
+   dalla più recente alla più lontana */
+const ORDINE = SERE.filter(s => !s.passata)
+  .concat(SERE.filter(s => s.passata).reverse());
+
+ORDINE.forEach(s => {
+  const tile = document.createElement('article');
+  tile.className = 'tile' + (s.passata ? ' passata' : '') + (s.oggi ? ' oggi' : '');
+  tile.style.setProperty('--c', s.fmt.c);
+  tile.innerHTML = s.loc
+    ? '<img class="loc" src="' + esc(s.loc) + '" width="900" height="1125" loading="lazy" ' +
+      'alt="' + esc('HOMIS ' + gm(s.dt) + ' — ' + s.nome) + '">'
+    : poster(gm(s.dt), s.nome, s.sub || s.fmt.etichetta, s.foto);
+  muro.appendChild(tile);
+});
+
+const rif = prossima ? prossima.dt : inizio(SERATE[SERATE.length - 1].d);
+document.getElementById('mese').textContent = MESI[rif.getMonth()];
+document.getElementById('anno').textContent = rif.getFullYear();
+
+/* aperto adesso? mer–sab, 18:00 → 00:00 */
+function aperto(){
+  const g = ora.getDay(), h = ora.getHours();
+  return g >= 3 && g <= 6 && h >= 18;
+}
+
+const grande = document.getElementById('poster-grande');
+const cap = document.getElementById('grande-cap');
+const stato = document.getElementById('stato-testo');
+const chData = document.getElementById('chiusura-data');
+const chSotto = document.getElementById('chiusura-sotto');
+
+if (prossima) {
+  /* il poster grande porta tutto il mese: il calendario è la prima cosa che si vede */
+  grande.innerHTML = posterCalendario(righeCal, MESI[rif.getMonth()] + ' ' + rif.getFullYear());
+
+  if (prossima.oggi && aperto()) {
+    cap.textContent = 'Aperto adesso, fino a mezzanotte';
+    stato.textContent = 'Aperto adesso, fino a mezzanotte';
+  } else if (prossima.oggi) {
+    cap.textContent = 'Stasera ' + prossima.nome + ', dalle 18';
+    stato.textContent = 'Stasera aperto dalle 18';
+  } else {
+    cap.textContent = 'Prossima sera: ' + gm(prossima.dt) + ' · ' + prossima.nome;
+    stato.textContent = 'Si riapre ' + GIORNI_L[prossima.dt.getDay()] + ' ' + prossima.dt.getDate() + ', dalle 18';
+  }
+  chData.textContent = gm(prossima.dt);
+  document.getElementById('chiusura-nome').textContent = prossima.nome;
+  chSotto.textContent = 'Via Thaon di Revel 3, Isola — dalle 18';
+} else {
+  /* nessuna data futura: la pagina lo dice, invece di mostrare un mese spento
+     come se fosse quello in corso */
+  cap.textContent = 'Nuove date in arrivo';
+  grande.innerHTML = righeCal.length
+    ? posterCalendario(righeCal, MESI[rif.getMonth()] + ' ' + rif.getFullYear())
+    : poster('Mer—Sab', 'Nuove date in arrivo', 'Su @homis_rsb');
+  stato.textContent = 'Mercoledì — Sabato, dalle 18';
+  document.getElementById('sottotesta').innerHTML =
+    'Le prossime date arrivano su <a href="https://instagram.com/homis_rsb" rel="noopener">@homis_rsb</a> · sempre 18:00 — 24:00, ingresso libero';
+  chData.textContent = 'Mer — Sab';
+  document.getElementById('chiusura-nome').textContent = 'Nuove date su @homis_rsb';
+  chSotto.textContent = 'Via Thaon di Revel 3, Isola — dalle 18';
+}
+
+</script>
+</body>
+</html>

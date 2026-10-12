@@ -1,0 +1,17 @@
+# homis.space — sito statico, nessuna compilazione.
+# Netlify pubblica il contenuto della cartella "sito" a ogni push sul ramo principale.
+
+[build]
+  publish = "sito"
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/loc/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
