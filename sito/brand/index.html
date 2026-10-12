@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>HOMIS — Brand Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nero:#0A0A0C;--crema:#F5F0E8;--crema-dim:rgba(245,240,232,.72);--crema-faint:rgba(245,240,232,.54);
+  --hair:rgba(245,240,232,.22);
+  --viola:#6A5FCC;--acido:#C9FF4C;--magenta:#E02A5F;--blu:#3D68CC;--c:var(--viola);
+  --gutter:clamp(18px,4.2vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--nero);color:var(--crema);font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+.grain{position:fixed;inset:-40%;z-index:90;pointer-events:none;opacity:.14;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='170' height='170'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='170' height='170' filter='url(%23n)' opacity='.7'/></svg>");background-size:170px 170px}
+.inner{max-width:1160px;margin:0 auto;padding-inline:var(--gutter)}
+.mono{font-size:clamp(10px,.74vw,11.5px);font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.num{font-weight:800;font-variation-settings:'wdth' 125;letter-spacing:-.02em}
+
+header{padding:clamp(52px,8vw,110px) 0 0}
+header img{width:min(100%,360px)}
+h1{font-size:clamp(34px,5.2vw,74px);line-height:.96;text-transform:uppercase;margin-top:clamp(26px,3vw,40px)}
+.occhiello{color:var(--crema-faint);margin-top:14px}
+.intro{margin-top:clamp(24px,3vw,38px);max-width:62ch;font-size:clamp(16px,1.3vw,19px);line-height:1.6;color:var(--crema-dim)}
+
+section{padding:clamp(56px,8vw,110px) 0 0}
+h2{font-size:clamp(24px,3.2vw,44px);line-height:1;text-transform:uppercase;margin-bottom:8px}
+.sez{color:var(--crema-faint);margin-bottom:clamp(24px,3vw,38px);padding-bottom:16px;border-bottom:1px solid var(--hair)}
+h3{font-size:clamp(16px,1.5vw,20px);text-transform:uppercase;letter-spacing:.02em;margin:clamp(26px,3vw,40px) 0 10px;font-weight:800}
+p{font-size:clamp(15px,1.2vw,17px);line-height:1.62;color:var(--crema-dim);max-width:70ch}
+p + p{margin-top:.9em}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:rgba(245,240,232,.08);padding:2px 6px;border-radius:3px;color:var(--crema)}
+.due{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(22px,3.4vw,56px)}
+@media(max-width:760px){.due{grid-template-columns:1fr}}
+
+/* colore */
+.colori{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:22px}
+.colore{border:1px solid var(--hair);overflow:hidden}
+.colore .campo{aspect-ratio:3/2;position:relative}
+.colore .campo::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='150' height='150' filter='url(%23g)' opacity='.72'/></svg>");background-size:150px 150px}
+.colore .voce{padding:14px 16px 16px}
+.colore b{display:block;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.colore span{display:block;color:var(--crema-faint);font-size:12px;margin-top:5px;font-family:ui-monospace,monospace;letter-spacing:.04em}
+.colore em{display:block;color:var(--crema-dim);font-size:13px;font-style:normal;margin-top:9px;line-height:1.45}
+
+/* anatomia */
+.anatomia{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start;margin-top:24px}
+@media(max-width:820px){.anatomia{grid-template-columns:1fr}}
+.poster{container-type:inline-size;position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;isolation:isolate;
+  background:linear-gradient(158deg,var(--c) 0%,color-mix(in srgb,var(--c) 97%,#000) 38%,
+    color-mix(in srgb,var(--c) 92%,#000) 72%,color-mix(in srgb,var(--c) 86%,#000) 100%)}
+.poster::after{content:"";position:absolute;inset:0;z-index:6;opacity:.44;mix-blend-mode:multiply;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='.68' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='3' intercept='-1'/></feComponentTransfer></filter><rect width='160' height='160' filter='url(%23m)'/></svg>");background-size:160px 160px}
+.poster__frame{position:absolute;inset:4.2%;z-index:2;border:1px solid rgba(255,255,255,.36)}
+.poster__word{position:absolute;z-index:3;left:50%;transform:translateX(-50%);top:7.5%;width:56%}
+.poster__ovale{position:absolute;z-index:4;left:50%;top:57%;transform:translate(-50%,-50%);width:96%;aspect-ratio:8/7;
+  border:clamp(3px,1.15cqw,7px) solid var(--crema);border-radius:50%;overflow:hidden;
+  background:radial-gradient(78% 70% at 62% 28%, color-mix(in srgb,var(--c) 46%,#07070A) 0%, color-mix(in srgb,var(--c) 18%,#07070A) 58%, #07070A 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:0 8% 10.5% 19%}
+.poster__ovale::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.20;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='o'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='3' intercept='-1'/></feComponentTransfer></filter><rect width='160' height='160' filter='url(%23o)'/></svg>");background-size:160px 160px}
+.poster__ovale > *{position:relative;z-index:2}
+.poster__data{font-size:13cqw;line-height:.88;font-weight:800;font-variation-settings:'wdth' 125}
+.poster__nome{margin-top:1.6cqw;font-size:max(9.5px,3.1cqw);font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.poster__sub{margin-top:.9cqw;font-size:max(8.5px,2.2cqw);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.76)}
+
+.misure{list-style:none}
+.misure li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;padding:13px 0;border-bottom:1px solid var(--hair);
+  font-size:clamp(14px,1.1vw,15.5px);line-height:1.4}
+.misure li b{font-weight:700}
+.misure li span{font-family:ui-monospace,monospace;font-size:13px;color:var(--crema-faint);text-align:right;white-space:nowrap}
+
+/* regole */
+.regole{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,3vw,44px);margin-top:26px}
+@media(max-width:760px){.regole{grid-template-columns:1fr}}
+.regole ul{list-style:none}
+.regole li{padding:11px 0 11px 22px;border-bottom:1px solid var(--hair);position:relative;font-size:clamp(14px,1.1vw,15.5px);line-height:1.5;color:var(--crema-dim)}
+.regole li::before{position:absolute;left:0;top:11px;font-weight:800}
+.si li::before{content:"+";color:var(--acido)}
+.no li::before{content:"–";color:var(--magenta)}
+.regole h3{margin-top:0}
+
+.scala{list-style:none;margin-top:18px}
+.scala li{padding:16px 0;border-bottom:1px solid var(--hair)}
+.scala .esempio{text-transform:uppercase;line-height:.95}
+.scala .dett{color:var(--crema-faint);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-top:9px}
+
+footer{margin-top:clamp(64px,9vw,120px);border-top:1px solid var(--hair);padding:28px 0 clamp(40px,6vw,80px);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--crema-faint)}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="inner">
+
+<header>
+  <img src="../homis-wordmark.png" alt="HOMIS">
+  <h1 class="num">Brand kit</h1>
+  <p class="occhiello mono">Versione 2.1 · 17 settembre 2026 · sistema poster, marchio e sito</p>
+  <p class="intro">Questo documento non inventa niente. Descrive il sistema che è già nei poster di HOMIS e lo rende ripetibile: cosa resta uguale ogni volta, cosa cambia a ogni serata, e con quali misure. Chiunque produca materiale per HOMIS parte da qui.</p>
+</header>
+
+<section>
+  <h2 class="num">Il principio</h2>
+  <p class="sez mono">Una sola idea, tenuta con disciplina</p>
+  <div class="due">
+    <div>
+      <p><b>Grana e ovale.</b> Un campo di colore saturo, coperto di grana come una pellicola tirata. Dentro, una finestra ovale bordata di bianco che inquadra la serata. Sopra, il marchio. In basso a sinistra, la data.</p>
+      <p>Il colore cambia a ogni serata, la struttura no. È la ripetizione a costruire il riconoscimento: dopo quattro poster il pubblico riconosce HOMIS prima di leggere il nome.</p>
+    </div>
+    <div>
+      <p><b>L'ovale è una finestra, non una decorazione.</b> Serve a inquadrare una fotografia. Un ovale vuoto è un poster incompleto: significa che manca la foto, non che il poster è minimale.</p>
+      <p><b>Apertura continua.</b> HOMIS è aperto ogni settimana, da mercoledì a sabato, dalle 18 a mezzanotte. L'impostazione da apertura saltuaria è decaduta: confondeva chi voleva tornare. Ogni materiale comunica la ricorrenza, non l'eccezione.</p>
+      <p><b>Il nero non è il brand.</b> Il nero è il muro su cui i poster sono appesi. I poster sono colore pieno. Quando tutto diventa nero, il sistema è spento.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="num">Colore</h2>
+  <p class="sez mono">Quattro colori di serata, due neutri. Nient'altro.</p>
+  <div class="colori">
+    <div class="colore"><div class="campo" style="background:linear-gradient(158deg,#7C72E0,#6A5FCC 40%,#3B3475 100%)"></div>
+      <div class="voce"><b>Viola</b><span>#6A5FCC</span><em>Listening: un disco intero, seduti, dall'inizio alla fine. È il colore che torna più spesso e tiene insieme la serie.</em></div></div>
+    <div class="colore"><div class="campo" style="background:linear-gradient(158deg,#D6FF6B,#C9FF4C 40%,#7E9E2F 100%)"></div>
+      <div class="voce"><b>Acido</b><span>#C9FF4C</span><em>Release e serate delle label del gruppo. Il colore più rumoroso, si usa quando esce un disco.</em></div></div>
+    <div class="colore"><div class="campo" style="background:linear-gradient(158deg,#EE3C6E,#E02A5F 40%,#8A1A3A 100%)"></div>
+      <div class="voce"><b>Magenta</b><span>#E02A5F</span><em>Takeover e ogni serata con un ospite in consolle. È il colore della serata con un nome sopra.</em></div></div>
+    <div class="colore"><div class="campo" style="background:linear-gradient(158deg,#5480E0,#3D68CC 40%,#25407D 100%)"></div>
+      <div class="voce"><b>Blu</b><span>#3D68CC</span><em>Open deck e serate aperte. Il colore più freddo, per le sere in cui porta i dischi chi viene.</em></div></div>
+    <div class="colore"><div class="campo" style="background:#F5F0E8"></div>
+      <div class="voce"><b>Crema</b><span>#F5F0E8</span><em>Il bianco del marchio e del bordo dell'ovale. Mai bianco puro: la crema tiene il calore della carta.</em></div></div>
+    <div class="colore"><div class="campo" style="background:#0A0A0C"></div>
+      <div class="voce"><b>Nero</b><span>#0A0A0C</span><em>Il fondo del sito e il muro dietro i poster. Non è mai il fondo di un poster.</em></div></div>
+  </div>
+
+  <h3>Come si costruisce il campo</h3>
+  <p>Il colore non è piatto: è una diagonale che scende dal chiaro allo scuro, con una luce in alto a sinistra. Il valore non scende mai sotto il 70% del colore puro, altrimenti l'acido diventa verde militare e il magenta diventa bordeaux.</p>
+  <p><code>linear-gradient(158deg, colore 0%, colore·97% 38%, colore·92% 72%, colore·86% 100%)</code>. Nessuna luce bianca sopra: schiariva l'angolo fino a farlo diventare crema e portava via un terzo della saturazione.</p>
+  <p>Misurato sui poster originali, il campo tiene una saturazione di 0,75 e una grana con deviazione standard di 6,8. Sono questi i due numeri da rispettare quando si produce un pezzo nuovo.</p>
+</section>
+
+<section>
+  <h2 class="num">Anatomia del poster</h2>
+  <p class="sez mono">Le proporzioni sono in percentuale: valgono a ogni misura</p>
+  <div class="anatomia">
+    <div class="poster">
+      <div class="poster__frame"></div>
+      <img class="poster__word" src="../homis-wordmark.png" alt="">
+      <div class="poster__ovale">
+        <div class="poster__data">23/9</div>
+        <div class="poster__nome">Listening</div>
+        <div class="poster__sub">Un disco intero</div>
+      </div>
+    </div>
+    <ul class="misure">
+      <li><b>Formato</b><span>4 : 5</span></li>
+      <li><b>Cornice interna</b><span>inset 4,2% · 1px bianco 36%</span></li>
+      <li><b>Marchio</b><span>largo 56% · top 7,5% · centrato</span></li>
+      <li><b>Ovale, larghezza</b><span>96% della base</span></li>
+      <li><b>Ovale, proporzione</b><span>8 : 7 — orizzontale</span></li>
+      <li><b>Ovale, bordo</b><span>1,15% della base, crema</span></li>
+      <li><b>Ovale, centro</b><span>57% dell'altezza</span></li>
+      <li><b>Data</b><span>13% della base · in basso a sinistra</span></li>
+      <li><b>Nome</b><span>3,1% · maiuscolo · spaziatura .14em</span></li>
+      <li><b>Sottotitolo</b><span>2,2% · maiuscolo · spaziatura .16em</span></li>
+      <li><b>Grana sul campo</b><span>multiply .44, rumore ad alto contrasto</span></li>
+      <li><b>Grana nell'ovale</b><span>screen .20</span></li>
+      <li><b>Pavimento del colore</b><span>mai sotto l'86% del puro</span></li>
+    </ul>
+  </div>
+  <h3>L'ovale attraversa la cornice</h3>
+  <p>È il punto in cui il poster smette di essere un template. L'ovale è più largo della cornice interna e la taglia a destra e a sinistra: la cornice passa dietro. Se l'ovale sta comodo dentro la cornice senza toccarla, il poster è sbagliato.</p>
+
+  <h3>Il calendario del mese</h3>
+  <p>Quando un pezzo porta tutte le serate del mese invece di una sola, non è un poster e non si comporta da poster. Non ha campo di colore e non ha ovale: una finestra su otto date non inquadra niente, e un fondo proprio lo metterebbe in gara con le locandine vere che gli stanno intorno. Restano la cornice sottile, il marchio in alto e la tipografia, in crema sul nero della pagina.</p>
+  <p>Le date su due colonne, che si leggono per righe in ordine di data: il numero nella voce numerica, il nome sotto nella voce etichetta. Le serate passate scendono a un terzo di opacità, la sera in corso porta la parola <b>stasera</b>, o <b>aperto ora</b> quando il locale è aperto. In basso, mese e anno a sinistra, orari a destra. Non si inventa un terzo impaginato oltre al poster di serata e a questo.</p>
+</section>
+
+<section>
+  <h2 class="num">Fotografia</h2>
+  <p class="sez mono">Cosa va dentro l'ovale</p>
+  <div class="due">
+    <div>
+      <p>Una sola immagine per serata, orizzontale, proporzione 8:7, che regge il taglio ovale: il soggetto sta al centro, i bordi si perdono nella curva.</p>
+      <p>Trattamento fisso: bianco e nero, contrasto 1,2, luminosità 0,88, fusione in <code>luminosity</code> sul colore della serata. La foto non porta il proprio colore: prende quello della sera.</p>
+    </div>
+    <div>
+      <p>Soggetti: persone dentro il locale, mani sui piatti, dischi, il bancone, la strada davanti alla porta. Chi suona quella sera, quando la foto c'è.</p>
+      <p><b>Quando la foto manca</b> l'ovale resta a tinta piena con la sua sfumatura. È una soluzione prevista, non un ripiego — ma una serie intera di ovali vuoti significa che manca il lavoro fotografico, non che il sistema è così.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="num">Marchio e carattere</h2>
+  <p class="sez mono">Un marchio, un carattere, quattro usi</p>
+  <div class="due">
+    <div>
+      <h3>Marchio</h3>
+      <p>Il lettering HOMIS non si ridisegna, non si ricompone a carattere, non si inclina, non si contorna. Esiste in crema su colore e in nero su crema. Sul poster sta sempre in alto al centro, largo il 56%. La riga «Record Store Bar» si usa solo dove il marchio compare da solo, mai sul poster.</p>
+      <p>Area di rispetto: attorno al marchio resta libero uno spazio pari all'altezza della H.</p>
+    </div>
+    <div>
+      <h3>Carattere</h3>
+      <p>Archivo variabile, assi larghezza 75–125 e peso 400–900. Un solo carattere per tutto: titoli, date, testo corrente.</p>
+      <p>Due voci sole. La <b>voce numerica</b>: peso 800, larghezza 125, spaziatura −0,02em, per date, titoli e cifre. La <b>voce etichetta</b>: peso 700, larghezza 100, maiuscolo, spaziatura 0,2em, corpo 10–11px, per tutto ciò che accompagna.</p>
+    </div>
+  </div>
+  <ul class="scala">
+    <li><div class="esempio num" style="font-size:clamp(40px,6vw,86px)">23/9</div><div class="dett">Data — voce numerica, la misura più grande di qualsiasi impaginato</div></li>
+    <li><div class="esempio num" style="font-size:clamp(24px,3.2vw,44px)">Back to Rush</div><div class="dett">Nome della serata — voce numerica, secondo livello</div></li>
+    <li><div class="esempio mono">Residenza · mercoledì · 18:00 — 00:00</div><div class="dett">Etichetta — voce etichetta, terzo livello</div></li>
+  </ul>
+  <h3>La data è sempre più grande del mese</h3>
+  <p>Nel vocabolario di HOMIS il contenuto è la serata, non il calendario. Il numero del giorno è l'elemento tipografico più grande di ogni pezzo. Il nome del mese sta sotto, più piccolo, e in molti casi non serve.</p>
+</section>
+
+<section>
+  <h2 class="num">Regole</h2>
+  <p class="sez mono">Da leggere prima di consegnare qualsiasi cosa</p>
+  <div class="regole">
+    <div class="si">
+      <h3>Si fa</h3>
+      <ul>
+        <li><b>Dichiarare sempre la continuità: aperto ogni settimana, da mercoledì a sabato, 18:00 — 24:00.</b></li>
+        <li>Un colore per serata, scelto dal formato, tenuto su tutto il pezzo.</li>
+        <li>Grana su ogni superficie colorata, sempre.</li>
+        <li>Data in basso a sinistra dentro l'ovale, con nome e sottotitolo sotto.</li>
+        <li>Fondo a tinta piena sui materiali di serata.</li>
+        <li>Maiuscolo con spaziatura larga per tutte le etichette.</li>
+        <li>Fotografia in bianco e nero, fusa nel colore della sera.</li>
+      </ul>
+    </div>
+    <div class="no">
+      <h3>Non si fa</h3>
+      <ul>
+        <li>Poster su fondo nero: il nero è il muro, non il manifesto.</li>
+        <li>Ovale piccolo e centrato che non tocca la cornice.</li>
+        <li>Ovale verticale: la proporzione è orizzontale, 8:7.</li>
+        <li>Colore impastato di nero oltre il 30%.</li>
+        <li>Marchio ripetuto due volte nello stesso pezzo.</li>
+        <li>Un secondo carattere, ombre, contorni, sfumature sul testo.</li>
+        <li>Fotografie a colori dentro l'ovale.</li>
+        <li><b>Ogni formula che suggerisca apertura saltuaria o a discrezione</b> — «apriamo quando ha senso», «solo per certe serate», «temporary». Il locale è aperto quattro sere a settimana, tutte le settimane: chi torna deve trovare la porta aperta.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="num">Il sito</h2>
+  <p class="sez mono">homis.space</p>
+  <p>Il sito applica lo stesso sistema, e il colore ce lo mettono le locandine. La pagina è nera da cima a fondo, senza un solo blocco chiaro, e niente porta colore tranne le locandine: sono l'unica cosa che squilla. Il calendario non è una lista: è il muro delle locandine vere, una per serata, che parte dalla data più vicina e va avanti. Le serate passate scendono in fondo in bianco e nero. Dove la locandina non c'è, o non si può usare, va il poster di sistema con il colore del formato.</p>
+  <p>Il calendario si aggiorna da una sola tabella nel codice, in fondo alla pagina. Una serata è una riga: data, nome, formato, sottotitolo e file della locandina. Le serate passate si spengono da sole, la prossima sale in testa. Nessuna data va tolta a mano: il sito non può restare indietro se la tabella è aggiornata.</p>
+</section>
+
+<footer class="mono">
+  <span>HOMIS — House of Music</span>
+  <span>Via Thaon di Revel 3 · Isola, Milano</span>
+</footer>
+
+</div>
+</body>
+</html>
