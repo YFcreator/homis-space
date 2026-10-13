@@ -11,7 +11,10 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Le locandine tengono lo stesso nome a ogni mese (GG-MM.jpg): il browser deve
+# ricontrollarle a ogni visita. Se il file è uguale Netlify risponde "non modificato"
+# senza riscaricarlo, se è cambiato arriva subito quello nuovo.
 [[headers]]
   for = "/loc/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=0, must-revalidate"
