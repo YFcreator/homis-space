@@ -241,6 +241,12 @@ section{padding:clamp(70px,10vw,140px) 0 0}
 .posto .prologo{margin-top:clamp(34px,4.4vw,58px);max-width:64ch}
 .posto p{font-size:clamp(16px,1.35vw,19px);line-height:1.72;color:var(--crema-dim)}
 .posto p + p{margin-top:1.35em}
+/* il testo segue lo schermo: una colonna su mobile, staccata dalla cornice; due colonne a tutta larghezza da desktop */
+.posto .inner{padding-inline:calc(var(--gutter) + 16px)}
+@media(min-width:920px){
+  .posto .prologo{max-width:none;columns:2;column-gap:clamp(40px,5vw,80px)}
+  .posto p{orphans:3;widows:3}
+}
 
 
 /* ---------- piede ---------- */
