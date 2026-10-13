@@ -133,6 +133,13 @@ img{display:block;max-width:100%;height:auto}
 .poster--cal{--ink:var(--crema);--ink-dim:var(--crema-dim);--ink-ombra:none;background:none}
 .poster--cal::after{display:none}
 .poster--cal .poster__frame{border-color:var(--hair)}
+/* il riquadro cresce con le serate: sotto le undici resta 4:5, oltre si allunga */
+.poster--cal{aspect-ratio:auto}
+.poster--cal .poster__word{top:9.4cqw}
+.poster--cal .cal{position:relative;inset:auto;margin:5.25cqw 4.2cqw;
+  min-height:calc(125cqw - 10.5cqw)}
+.poster--cal .cal::before,.poster--cal .cal::after{content:"";flex:1 1 0}
+.poster--cal .cal::after{min-height:7cqw} /* spazio per il piede quando le righe sono tante */
 .cal{position:absolute;inset:4.2%;z-index:3;display:flex;flex-direction:column;
   justify-content:center;padding:17cqw 5.5% 0;color:var(--ink)}
 .cal__griglia{display:grid;grid-template-columns:1fr 1fr;column-gap:6%;row-gap:2.6cqw;
